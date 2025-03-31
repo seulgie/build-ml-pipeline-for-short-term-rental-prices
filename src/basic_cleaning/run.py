@@ -31,6 +31,10 @@ def go(args):
     logger.info("Dropping null values")
     df.dropna(inplace=True)
 
+    # Remove outliers2
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+
     # Save clean_sample.csv
     output_file = "clean_sample.csv"
     df.to_csv(output_file, index=False)
